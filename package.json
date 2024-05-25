@@ -12,9 +12,26 @@
   "module": "node16",
   "moduleResolution": "node16",
   "moduleDetection": "force",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "./dist/package/index.js",
   "types": "./dist/package/index.d.ts",
   "author": "Lee SangHo <inter@inter129.dev>",
-  "license": "MIT"
+  "license": "MIT",
+  "description": "Korean School Info API Wrapper for Node.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./dist/package/index.js"
+  },
+  "keywords": [
+    "schoolinfo"
+  ],
+  "homepage": "https://github.com/KschoolClick/schoolinfo",
+  "bugs": {
+    "url": "https://github.com/KschoolClick/schoolinfo/issues",
+    "email": "me@iml.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KschoolClick/schoolinfo.git"
+  }
 }

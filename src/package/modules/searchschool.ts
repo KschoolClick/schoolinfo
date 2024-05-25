@@ -58,7 +58,7 @@ export default async function searchSchool(
   )[] = data
     .split(`$("#searchParamFrm #HG_CD").val('`)
     .map((e: string) => e.split(`'`)[0])
-    .filter((e: string) => e.startsWith("G"));
+    .filter((e: string) => e.length == 10); // check is alphabet or number
   if (getSchoolInfo) {
     let schoolInfos = [];
     for (const schoolCode of schoolCodes) {
