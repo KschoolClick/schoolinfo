@@ -49,35 +49,23 @@ export default async function searchSchool(
     .replaceAll(`\r`, "")
     .replaceAll(`\n`, "")
     .replaceAll(`\t`, "");
-  let schoolCodes: (
-    | string
-    | {
-        code: string;
-        info: SchoolInfo | string;
-      }
-  )[] = data
+  let schoolCodes: string[] = data
     .split(`$("#searchParamFrm #HG_CD").val('`)
     .map((e: string) => e.split(`'`)[0])
-    .filter((e: string) => e.length == 10); // check is alphabet or number
+    .filter((e: string) => e.length == 10);
   if (getSchoolInfo) {
-    let schoolInfos = [];
-    for (const schoolCode of schoolCodes) {
-      const res = await gsif(schoolCode as string);
-      if (res.s) {
-        schoolInfos.push(res.r);
-      } else {
-        schoolInfos.push("error");
-      }
-    }
-    schoolCodes = schoolCodes.map((e, i) => {
+    const schoolInfos = (
+      await Promise.all(schoolCodes.map((e) => gsif(e as string)))
+    ).map((e, i) => {
       return {
-        code: e,
-        info: schoolInfos[i],
+        ...(e.s ? e.r : {}),
+        code: schoolCodes[i] as string,
       };
-    }) as {
-      code: string;
-      info: SchoolInfo | string;
-    }[];
+    });
+    return {
+      s: true,
+      data: schoolInfos,
+    };
   }
   return {
     s: true,
